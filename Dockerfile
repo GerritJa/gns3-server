@@ -1,6 +1,6 @@
 # Dockerfile for GNS3 server development
 
-FROM ubuntu:16.04
+FROM jpetazzo/dind
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -33,4 +33,4 @@ RUN pip3 install -r /server/requirements.txt
 
 EXPOSE 3080
 
-CMD python3 -m gns3server --local
+CMD ["wrapdocker", "/server/run.sh"]
