@@ -318,6 +318,9 @@ class DockerVM(BaseNode):
                 e = e.strip()
                 if not e.startswith("GNS3_"):
                     params["Env"].append(e)
+                ### set docker resource limitation through environment variables
+                    if e.startswith("CPULIMIT="):
+                        params["HostConfig"]["NanoCpus"] = int(e.split("=")[1])*(10**7)
 
         if self._console_type == "vnc":
             yield from self._start_vnc()
